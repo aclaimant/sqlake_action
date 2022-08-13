@@ -1,6 +1,8 @@
 #!/bin/sh -l
 set -e
 
+echo "Hello ${INPUT_PROFILE_NAME} | ${INPUT_API_KEY}"
+
 time=$(date)
 echo ::set-output name=time::$time
 
