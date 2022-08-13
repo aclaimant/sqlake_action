@@ -1,0 +1,19 @@
+name: 'SQL Execute Action'
+description: 'Execute a SQL command using Upsolver SQLake'
+inputs:
+  api_key:
+    description: 'upsolver API key'
+    required: true
+    default: 'somekey'
+  profile_name:
+    description: 'provide the profile name to use when executing a query'
+    required: false
+    default: 'profile'
+outputs:
+  query_results:
+    description: 'Returns the query results or a status message'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.profile_name }}
