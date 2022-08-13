@@ -11,7 +11,7 @@ jobs:
         uses: ./
         id: list_step
         with:
-          profile: profile
+          profile_name: profile
           api_key: ${{ secrets.API_KEY }}
       - name: Print results
         run: echo ${{ steps.list_step.outputs.query_results }}
