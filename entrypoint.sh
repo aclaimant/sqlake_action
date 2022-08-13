@@ -4,11 +4,11 @@ set -e
 time=$(date)
 echo ::set-output name=time::$time
 
-cat config
+cat /config
 
-echo "token=${INPUT_API_KEY}" >> config
+echo "token=${INPUT_API_KEY}" >> /config
 
-#results=`upsolver -c config catalogs ls`
+#results=`upsolver -c /config catalogs ls`
 
 results=`upsolver -h`
 
