@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 ## Parses a SQLake Worksheet and executes each command using the Upsolver CLI ##
-from inspect import FullArgSpec
 import subprocess
 from typing import NamedTuple
 import json
@@ -49,7 +48,6 @@ def main():
         results = []
         for cmd in sql_cmd:
             if c <= len(sql_cmd):
-                res
                 try:
                     print('Executing {0}: {1}'.format(c, cmd))
                     res = subprocess.run(
