@@ -17,7 +17,8 @@ class QueryResults (NamedTuple):
 
 def main():
     worksheet_path = ''
-
+    print('Starting to parse and execute worksheets')
+    
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hw:')
         if not opts:
@@ -66,6 +67,7 @@ def main():
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
 def getworksheets(input_path):
+    print('Looking for worksheets in {}'.format(input_path))
     worksheets = []
     for path, subdirs, files in os.walk(input_path):
         for name in files:
@@ -81,6 +83,7 @@ def getworksheets(input_path):
 ## read each worksheet, and split it on ;
 ## return a list of sql commands to execute
 def splitworksheet(path):
+    print('Spliting worksheet in {}'.format(path))
     cmds = []
     fd = open(path, 'r')
     ws_file = fd.read()
