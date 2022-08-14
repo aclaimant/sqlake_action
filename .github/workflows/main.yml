@@ -11,7 +11,7 @@ jobs:
         uses: rhasson/sqlake_action@main
         id: run_step
         with:
-          worksheet_path: /src/worksheets
+          worksheet_path: src/worksheets
           profile_name: profile
           api_key: ${{ secrets.API_KEY }}
       - name: Print Results

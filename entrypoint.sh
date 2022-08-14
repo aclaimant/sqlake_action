@@ -8,6 +8,6 @@ echo ::set-output name=time::$time
 echo "token=${INPUT_API_KEY}" >> /config
 
 ## execute script with worksheet path
-results=`python3 /executeworksheet.py -w ${INPUT_WORKSHEET_PATH}`
+results=`./executeworksheet.py -w ${INPUT_WORKSHEET_PATH}`
 
 echo "::set-output name=query_results::$results"
