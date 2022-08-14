@@ -1,17 +1,18 @@
 on: [push]
 
 jobs:
-  list_catalogs:
+  run_worksheet:
     runs-on: ubuntu-latest
-    name: listing catalogs
+    name: Run Worksheet
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: list step
-        uses: ./
-        id: list_step
+      - name: Run Worksheet
+        uses: rhasson/sqlake_action@master
+        id: run_step
         with:
+          worksheet_path: /src/worksheets
           profile_name: profile
           api_key: ${{ secrets.API_KEY }}
-      - name: Print results
-        run: echo ${{ steps.list_step.outputs.query_results }}
+      - name: Print Results
+        run: echo ${{ steps.run_step.outputs.query_results }}
