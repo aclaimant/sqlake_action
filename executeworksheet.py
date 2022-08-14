@@ -18,7 +18,7 @@ class QueryResults (NamedTuple):
 def main():
     worksheet_path = ''
     print('Starting to parse and execute worksheets')
-    
+
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hw:')
         if not opts:
@@ -49,10 +49,11 @@ def main():
         results = []
         for cmd in sql_cmd:
             if c <= len(sql_cmd):
+                res
                 try:
                     print('Executing {0}: {1}'.format(c, cmd))
                     res = subprocess.run(
-                        ['upsolver', '-c', '~/.upsolver/config', 'execute', "{}".format(cmd)], capture_output=True, text=True, check=True
+                        ['upsolver', '-c', '/config', 'execute', "{}".format(cmd)], capture_output=True, text=True, check=True
                     )
                     #print('Query results: {}'.format(res.stdout))
                     results.append(QueryResults(c, cmd, res.stdout, res.stderr))
