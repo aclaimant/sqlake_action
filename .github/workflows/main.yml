@@ -8,7 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Run Worksheet
-        uses: rhasson/sqlake_action@v1
+        uses: rhasson/sqlake_action@main
         id: run_step
         with:
           worksheet_path: /src/worksheets
