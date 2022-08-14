@@ -1,6 +1,10 @@
 name: 'SQL Execute Action'
 description: 'Execute a SQL command using Upsolver SQLake'
 inputs:
+  worksheet_path:
+    description: 'the local repo path to the worksheet'
+    required: true
+    default: '/src'
   api_key:
     description: 'upsolver API key'
     required: true
@@ -11,7 +15,7 @@ inputs:
     default: 'profile'
 outputs:
   query_results:
-    description: 'Returns the query results or a status message'
+    description: 'Returns a JSON object with the query, output and error messages'
 runs:
   using: 'docker'
   image: 'Dockerfile'
