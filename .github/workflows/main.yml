@@ -15,4 +15,4 @@ jobs:
           api_key: ${{ secrets.API_KEY }}
       - name: Print Results
         run: |
-          echo $(cat ${GITHUB_WORKSPACE}/worksheet_output.json)
+          cat ${GITHUB_WORKSPACE}/worksheet_output.json >> $GITHUB_STEP_SUMMARY
