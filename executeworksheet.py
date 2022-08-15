@@ -21,6 +21,7 @@ def main():
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hw:o:')
+        print('**args {}'.format(args))
         if not opts:
             print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
             exit(2)
@@ -108,11 +109,10 @@ def splitworksheet(path):
 
 ## write the worksheet execution results to a temp file
 def writeresults(data, local_path):
-    print("Printing results")
-    print(data)
     print('Writing worksheet results to {}'.format(local_path))
     with open(local_path + '/worksheet_output.json', 'a', encoding='utf-8') as fd:
         json.dump(data, fd, ensure_ascii=False)
+        print(json.dumps(data))
 
 if __name__ == '__main__':
   main()
