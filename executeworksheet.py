@@ -112,7 +112,6 @@ def writeresults(data, local_path):
     print('Writing worksheet results to {}'.format(local_path))
     with open(local_path + '/worksheet_output.json', 'a', encoding='utf-8') as fd:
         json.dump(data, fd, ensure_ascii=False)
-        print(json.dumps(data))
 
 if __name__ == '__main__':
   main()
