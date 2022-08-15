@@ -61,8 +61,8 @@ def main():
                     exit(2)
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
-        print(json.dumps(results))
-        #writeresults(results)
+        #print(json.dumps(results))
+        writeresults(results)
         
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
@@ -101,9 +101,8 @@ def splitworksheet(path):
 
 ## write the worksheet execution results to a temp file
 def writeresults(data):
-    fd = open('/worksheet_output.json', 'a', encoding='utf-8')
-    fd.write(json.dumps(data, ensure_ascii=False))
-    fd.close()
+    with open('/worksheet_output.json', 'a', encoding='utf-8') as fd:
+        json.dump(data, fd, ensure_ascii=False)
 
 if __name__ == '__main__':
   main()
