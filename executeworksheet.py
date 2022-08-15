@@ -53,15 +53,16 @@ def main():
                     res = subprocess.run(
                         ['upsolver', '-c', '/config', 'execute', "{}".format(cmd)], capture_output=True, text=True, check=True
                     )
-                    #print('Query results: {}'.format(res.stdout))
                     results.append(QueryResults(c, cmd, res.stdout, res.stderr))
                     c += 1
-                except:
-                    print('Query execution failed: {}'.format(res.stderr))
+                except subprocess.CalledProcessError as e:
+                    print('Query execution failed: {}'.format(e.output))
+                    results.append(QueryResults(c, cmd, '', e.output))
                     exit(2)
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
-        print(json.dumps(results))
+        #print(json.dumps(results))
+        writeresults(results)
         
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
@@ -100,7 +101,7 @@ def splitworksheet(path):
 
 ## write the worksheet execution results to a temp file
 def writeresults(data):
-    fd = open('/worksheet_output.json', 'w')
+    fd = open('/worksheet_output.json', 'ab')
     fd.write(json.dumps(data))
     fd.close()
 
