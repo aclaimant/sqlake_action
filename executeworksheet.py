@@ -118,7 +118,7 @@ def writeresults(data, local_path):
 def formatoutput(data):
     output = '## Upsolver SQLake Worksheet Execution Summary \r\n\r\n'
     for i in data:
-        output += '### {} \r\n\r\n'.format(i.worksheet)
+        output += '### **{}** \r\n\r\n'.format(i.worksheet)
         output += '--- \r\n\r\n'
         output += '**Query position in Worksheet:** {} \r\n\r\n'.format(i.order)
         output += '**Query text:** `{}` \r\n\r\n'.format(i.query)
