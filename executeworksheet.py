@@ -108,7 +108,7 @@ def splitworksheet(path):
 
 ## write the worksheet execution results to a temp file
 def writeresults(data, local_path):
-    print('Writing worksheet results to file')
+    print('Writing worksheet results to {}'.format(local_path))
     with open(local_path + '/worksheet_output.json', 'a', encoding='utf-8') as fd:
         json.dump(data, fd, ensure_ascii=False)
 

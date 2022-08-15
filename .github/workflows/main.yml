@@ -15,6 +15,6 @@ jobs:
           api_key: ${{ secrets.API_KEY }}
       - name: Print Results
         run: |
-          OUT=$(cat $GITHUB_WORKSPACE/worksheet_output.json)
+          OUT=$(cat ${GITHUB_WORKSPACE}/worksheet_output.json)
           echo "::set-output name=query_results::$OUT"
           echo ${{ steps.run_step.outputs.query_results }}
