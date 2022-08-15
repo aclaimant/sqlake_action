@@ -1,10 +1,10 @@
-name: 'SQL Execute Action'
+name: 'SQLake Execute Action'
 description: 'Execute a SQL command using Upsolver SQLake'
 inputs:
   worksheet_path:
     description: 'the local repo path to the worksheet'
     required: true
-    default: '/src'
+    default: 'src'
   api_key:
     description: 'upsolver API key'
     required: true
