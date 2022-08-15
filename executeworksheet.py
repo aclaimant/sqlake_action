@@ -16,26 +16,33 @@ class QueryResults (NamedTuple):
 
 def main():
     worksheet_path = ''
+    local_path = ''
     print('Starting to parse and execute worksheets')
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hw:')
         if not opts:
-            print('executeworksheet.py -w <path_to_worksheet>')
+            print('executeworksheet.py -w <path_to_worksheet> -o <output_path')
             exit(2)
     except getopt.GetoptError:
-        print('executeworksheet.py -w <path_to_worksheet>')
+        print('executeworksheet.py -w <path_to_worksheet> -o <output_path')
         sys.exit(2)
 
     for opt, arg in opts:
         if opt == '-h':
-            print('executeworksheet.py -w <path_to_worksheet>')
+            print('executeworksheet.py -w <path_to_worksheet> -o <output_path')
             sys.exit()
         elif opt == '-w':
             if os.path.exists(arg):
                 worksheet_path = arg
             else:
                 print('could not find a worksheet in the given path '+arg)
+                sys.exit(2)
+        elif opt == '-o':
+            if os.path.exists(arg):
+                local_path = arg
+            else:
+                print('you must provide an output path to write the results of queries')
                 sys.exit(2)
         else:
             print('No args found')
@@ -62,7 +69,7 @@ def main():
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
         #print(json.dumps(results))
-        writeresults(results)
+        writeresults(results, local_path)
         
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
@@ -100,9 +107,9 @@ def splitworksheet(path):
     return cmds
 
 ## write the worksheet execution results to a temp file
-def writeresults(data):
+def writeresults(data, local_path):
     print('Writing worksheet results to file')
-    with open('github/workspace/worksheet_output.json', 'a', encoding='utf-8') as fd:
+    with open(local_path + '/worksheet_output.json', 'a', encoding='utf-8') as fd:
         json.dump(data, fd, ensure_ascii=False)
 
 if __name__ == '__main__':
