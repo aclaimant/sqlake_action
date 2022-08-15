@@ -9,6 +9,7 @@ import sys
 import getopt
 
 class QueryResults (NamedTuple):
+    worksheet: str # worksheet path and name
     order: int # order of exeuction
     query: str # query string
     out: str # output from the execution
@@ -61,11 +62,11 @@ def main():
                     res = subprocess.run(
                         ['upsolver', '-c', '/config', 'execute', "{}".format(cmd)], capture_output=True, text=True, check=True
                     )
-                    results.append(QueryResults(c, cmd, res.stdout, res.stderr))
+                    results.append(QueryResults(file, c, cmd, res.stdout, res.stderr))
                     c += 1
                 except subprocess.CalledProcessError as e:
                     print('Query execution failed: {}'.format(e.output))
-                    results.append(QueryResults(c, cmd, '', e.output))
+                    results.append(QueryResults(file, c, cmd, '', e.output))
                     exit(2)
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
@@ -109,9 +110,24 @@ def splitworksheet(path):
 
 ## write the worksheet execution results to a temp file
 def writeresults(data, local_path):
-    print('Writing worksheet results to {}'.format(local_path))
-    with open(local_path + '/worksheet_output.json', 'a', encoding='utf-8') as fd:
-        json.dump(data, fd, ensure_ascii=False)
+    print('Writing execution results to {}'.format(local_path))
+    md = formatoutput(data)
+    with open(local_path + '/worksheet_output.md', 'a', encoding='utf-8') as fd:
+        fd.write(md)
+
+def formatoutput(data):
+    output = '## Upsolver SQLake Worksheet Execution Summary \r\n <br>'
+    for i in data:
+        output += '''
+            ### {file}
+            Query position in Worksheet: {order}
+            Query text: {query}
+            Query results: {results}
+            Errors: {errors}
+            <br>
+        '''.format(file=i.file, order=i.order, query=i.query, results=i.stdout, errors=i.stderr)
+
+    return output
 
 if __name__ == '__main__':
   main()
