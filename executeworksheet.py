@@ -98,5 +98,11 @@ def splitworksheet(path):
 
     return cmds
 
+## write the worksheet execution results to a temp file
+def writeresults(data):
+    fd = open('/worksheet_output.json', 'w')
+    fd.write(json.dumps(data))
+    fd.close()
+
 if __name__ == '__main__':
   main()
