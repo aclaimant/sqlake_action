@@ -16,5 +16,6 @@ jobs:
       - name: Print Results
         run: |
           OUT=$(cat ${GITHUB_WORKSPACE}/worksheet_output.json)
+          echo $OUT
           echo "::set-output name=query_results::$OUT"
           echo ${{ steps.run_step.outputs.query_results }}
