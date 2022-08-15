@@ -61,8 +61,8 @@ def main():
                     exit(2)
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
-        #print(json.dumps(results))
-        writeresults(results)
+        print(json.dumps(results))
+        #writeresults(results)
         
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
