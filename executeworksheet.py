@@ -65,8 +65,8 @@ def main():
                     results.append(QueryResults(file, c, cmd, res.stdout, res.stderr))
                     c += 1
                 except subprocess.CalledProcessError as e:
-                    print('Query execution failed: {}'.format(e.output))
-                    results.append(QueryResults(file, c, cmd, '', e.output))
+                    print('Query execution failed: {}'.format(e.stderr))
+                    results.append(QueryResults(file, c, cmd, '', e.stderr))
                     exit(2)
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
