@@ -119,11 +119,11 @@ def formatoutput(data):
     output = '## Upsolver SQLake Worksheet Execution Summary \r\n\r\n'
     for i in data:
         output += '### {} \r\n\r\n'.format(i.worksheet)
+        output += '---'
         output += '**Query position in Worksheet:** {} \r\n\r\n'.format(i.order)
         output += '**Query text:** `{}` \r\n\r\n'.format(i.query)
         output += '**Query results:** `{}` \r\n\r\n'.format(i.out)
         output += '**Errors:** `{}` \r\n\r\n'.format(i.err)
-        output += '<br>'
 
     return output
 
