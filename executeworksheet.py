@@ -118,14 +118,13 @@ def writeresults(data, local_path):
 def formatoutput(data):
     output = '## Upsolver SQLake Worksheet Execution Summary \r\n <br>'
     for i in data:
-        output += '''
-            ### {file} \r\n
-            Query position in Worksheet: {order} \r\n
-            Query text: {query} \r\n
-            Query results: {results} \r\n
-            Errors: {errors} \r\n
-            <br>
-        '''.format(file=i.worksheet, order=i.order, query=i.query, results=json.dumps(i.out), errors=i.err)
+        output += '### {} \r\n'.format(i.worksheet)
+        output += 'Query position in Worksheet: {} \r\n'.format(i.order)
+        output += 'Query text: {} \r\n'.format(i.query)
+        output += 'Query results: {} \r\n'.format(i.out)
+        output += 'Errors: {errors} \r\n'.format(i.err)
+        output += '<br>'
+        #'''.format(file=i.worksheet, order=i.order, query=i.query, results=json.dumps(i.out), errors=i.err)
 
     return output
 
