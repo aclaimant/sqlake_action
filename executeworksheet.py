@@ -20,17 +20,17 @@ def main():
     print('Starting to parse and execute worksheets')
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'hw:')
+        opts, args = getopt.getopt(sys.argv[1:], 'hw:o:')
         if not opts:
-            print('executeworksheet.py -w <path_to_worksheet> -o <output_path')
+            print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
             exit(2)
     except getopt.GetoptError:
-        print('executeworksheet.py -w <path_to_worksheet> -o <output_path')
+        print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
         sys.exit(2)
 
     for opt, arg in opts:
         if opt == '-h':
-            print('executeworksheet.py -w <path_to_worksheet> -o <output_path')
+            print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
             sys.exit()
         elif opt == '-w':
             if os.path.exists(arg):
