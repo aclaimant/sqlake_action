@@ -125,7 +125,7 @@ def formatoutput(data):
             Query results: {results}
             Errors: {errors}
             <br>
-        '''.format(file=i.file, order=i.order, query=i.query, results=i.stdout, errors=i.stderr)
+        '''.format(file=i.worksheet, order=i.order, query=i.query, results=i.out, errors=i.err)
 
     return output
 
