@@ -14,9 +14,8 @@ jobs:
           worksheet_path: src/worksheets
           profile_name: profile
           api_key: ${{ secrets.API_KEY }}
-      - name: Get Results
-        run: |
-          OUT=$(cat /worksheet_output.json)
-          echo "::set-output name=query_results::$OUT"
       - name: Print Results
-        run: echo ${{ steps.run_step.outputs.query_results }}
+        run: |
+          OUT=$(ls /)
+          echo "::set-output name=query_results::$OUT"
+          echo ${{ steps.run_step.outputs.query_results }}
