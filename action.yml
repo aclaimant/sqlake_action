@@ -20,4 +20,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - ${{ inputs.api_key }}
+    - ${{ inputs.worksheet_path }}
     - ${{ inputs.profile_name }}
