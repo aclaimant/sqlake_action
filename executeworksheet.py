@@ -98,12 +98,16 @@ def splitworksheet(path):
     ws_file = fd.read()
     fd.close()
 
-    sql_commands = ws_file.split(';')
+    s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,ws_file)
+    s = re.sub(re.compile("//.*?\n") ,"" ,s)
+    s = re.sub(re.compile("--.*?\n") ,"" ,s)
+
+    sql_commands = s.split(';')
     
     for s in sql_commands:
-        s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,s)
-        s = re.sub(re.compile("(//.*?\n).*") ,"" ,s)
-        s = re.sub(re.compile("(--.*?\n).*") ,"" ,s)
+        #s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,s)
+        #s = re.sub(re.compile("(//.*?\n).*") ,"" ,s)
+        #s = re.sub(re.compile("(--.*?\n).*") ,"" ,s)
         s = s.strip()
         if s:
             s = s + ';'
