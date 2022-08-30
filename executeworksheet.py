@@ -23,7 +23,6 @@ def main():
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hw:o:')
-        print('**args {}'.format(args))
         if not opts:
             print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
             exit(2)
@@ -103,8 +102,8 @@ def splitworksheet(path):
     
     for s in sql_commands:
         s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,s)
-        s = re.sub(re.compile("//.*?\n") ,"" ,s)
-        s = re.sub(re.compile("--.*?\n") ,"" ,s)
+        s = re.sub(re.compile("(//.*?\n).*") ,"" ,s)
+        s = re.sub(re.compile("(--.*?\n).*") ,"" ,s)
         s = s.strip()
         if s:
             s = s + ';'
