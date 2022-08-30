@@ -5,6 +5,7 @@ import subprocess
 from typing import NamedTuple
 import json
 import os
+import re
 import sys
 import getopt
 
@@ -102,6 +103,7 @@ def splitworksheet(path):
     
     for s in sql_commands:
         s = s.strip()
+        re.sub(r'(?m)^ *\-\-.*\n?', '', s)
         if s:
             s = s + ';'
             cmds.append(s)
