@@ -102,8 +102,10 @@ def splitworksheet(path):
     sql_commands = ws_file.split(';')
     
     for s in sql_commands:
+        s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,s)
+        s = re.sub(re.compile("//.*?\n") ,"" ,s)
+        s = re.sub(re.compile("--.*?\n") ,"" ,s)
         s = s.strip()
-        re.sub(r'(?m)^ *\-\-.*\n?', '', s)
         if s:
             s = s + ';'
             cmds.append(s)
