@@ -87,7 +87,7 @@ def getworksheets(input_path):
             if file_ext.lower() in ['.sql']:
                 worksheets.append(fullpath)
 
-    return worksheets
+    return worksheets.sort()
 
 ## read each worksheet, and split it on ;
 ## return a list of sql commands to execute
@@ -105,9 +105,6 @@ def splitworksheet(path):
     sql_commands = s.split(';')
     
     for s in sql_commands:
-        #s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,s)
-        #s = re.sub(re.compile("(//.*?\n).*") ,"" ,s)
-        #s = re.sub(re.compile("(--.*?\n).*") ,"" ,s)
         s = s.strip()
         if s:
             s = s + ';'
@@ -129,7 +126,7 @@ def formatoutput(data):
         output += '--- \r\n\r\n'
         output += '**Query position in Worksheet:** {} \r\n\r\n'.format(i.order)
         output += '**Query text:** `{}` \r\n\r\n'.format(i.query)
-        output += '**Query results:** `{}` \r\n\r\n'.format(i.out)
+        output += '**Results:** `{}` \r\n\r\n'.format(i.out)
         output += '**Errors:** `{}` \r\n\r\n'.format(i.err)
 
     return output
