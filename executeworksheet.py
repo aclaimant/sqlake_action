@@ -87,7 +87,8 @@ def getworksheets(input_path):
             if file_ext.lower() in ['.sql']:
                 worksheets.append(fullpath)
 
-    return worksheets.sort()
+    worksheets.sort()
+    return worksheets
 
 ## read each worksheet, and split it on ;
 ## return a list of sql commands to execute
