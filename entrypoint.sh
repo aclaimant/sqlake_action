@@ -8,6 +8,7 @@ echo ::set-output name=time::$time
 echo "token=${INPUT_API_KEY}" >> /config
 
 ## execute script with worksheet path
+echo ${INPUT_PATH_TO_SQL}
 python3 /executeworksheet.py -w ${INPUT_PATH_TO_SQL} -o ${GITHUB_WORKSPACE}
 
 #echo "::set-output name=query_results::$results"
