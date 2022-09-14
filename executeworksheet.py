@@ -24,21 +24,21 @@ def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hw:o:')
         if not opts:
-            print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
+            print('executeworksheet.py -w <path_to_sql> -o <output_path>')
             exit(2)
     except getopt.GetoptError:
-        print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
+        print('executeworksheet.py -w <path_to_sql> -o <output_path>')
         sys.exit(2)
 
     for opt, arg in opts:
         if opt == '-h':
-            print('executeworksheet.py -w <path_to_worksheet> -o <output_path>')
+            print('executeworksheet.py -w <path_to_sql> -o <output_path>')
             sys.exit()
         elif opt == '-w':
             if os.path.exists(arg):
                 worksheet_path = arg
             else:
-                print('could not find a worksheet in the given path '+arg)
+                print('could not find a SQL file in the given path '+arg)
                 sys.exit(2)
         elif opt == '-o':
             if os.path.exists(arg):
@@ -76,7 +76,7 @@ def main():
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
 def getworksheets(input_path):
-    print('Looking for worksheets in {}'.format(input_path))
+    print('Looking for SQL files in {}'.format(input_path))
     worksheets = []
     for path, subdirs, files in os.walk(input_path):
         for name in files:
@@ -93,7 +93,7 @@ def getworksheets(input_path):
 ## read each worksheet, and split it on ;
 ## return a list of sql commands to execute
 def splitworksheet(path):
-    print('Spliting worksheet in {}'.format(path))
+    print('Spliting SQL file in {}'.format(path))
     cmds = []
     fd = open(path, 'r')
     ws_file = fd.read()
@@ -117,11 +117,11 @@ def splitworksheet(path):
 def writeresults(data, local_path):
     print('Writing execution results to {}'.format(local_path))
     md = formatoutput(data)
-    with open(local_path + '/worksheet_output.md', 'a', encoding='utf-8') as fd:
+    with open(local_path + '/execution_output.md', 'a', encoding='utf-8') as fd:
         fd.write(md)
 
 def formatoutput(data):
-    output = '## Upsolver SQLake Worksheet Execution Summary \r\n\r\n'
+    output = '## Upsolver SQLake Execution Summary \r\n\r\n'
     for i in data:
         output += '### **{}** \r\n\r\n'.format(i.worksheet)
         output += '--- \r\n\r\n'

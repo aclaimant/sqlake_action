@@ -1,8 +1,8 @@
 name: 'SQLake Execute Action'
 description: 'Execute a SQL command using Upsolver SQLake'
 inputs:
-  worksheet_path:
-    description: 'the local repo path to the worksheet'
+  path_to_sql:
+    description: 'the relative path, in the local repo, to the files containing SQL code'
     required: true
     default: 'src'
   api_key:
@@ -17,4 +17,4 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.api_key }}
-    - ${{ inputs.worksheet_path }}
+    - ${{ inputs.path_to_sql }}
