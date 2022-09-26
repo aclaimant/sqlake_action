@@ -43,11 +43,11 @@ def main():
                 print('when using -f you must provide a comma separated list of SQL filenames and relative path '+arg)
         elif opt == '-w':
             if os.path.exists(arg):
-                if len(files) > 0:
-                    print('cannot pass both a file list and folder path, you need to pick one')
-                    sys.exit(2)
-                else:
-                    files = getworksheets(arg)
+                # if len(files) > 0:
+                #     print('cannot pass both a file list and folder path, you need to pick one')
+                #     sys.exit(2)
+                # else:
+                files = getworksheets(arg)
             else:
                 print('could not find a SQL file in the given path '+arg)
                 sys.exit(2)
