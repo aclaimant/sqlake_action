@@ -21,4 +21,4 @@ runs:
   args:
     - ${{ inputs.api_key }}
     - ${{ inputs.path_to_sql }}
-    - ${{ input.file_list }}
+    - ${{ inputs.file_list }}
