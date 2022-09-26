@@ -18,25 +18,36 @@ class QueryResults (NamedTuple):
 
 def main():
     worksheet_path = ''
+    file_list = ''
     local_path = ''
     print('Starting to parse and execute worksheets')
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'hw:o:')
+        opts, args = getopt.getopt(sys.argv[1:], 'hf:w:o:')
         if not opts:
-            print('executeworksheet.py -w <path_to_sql> -o <output_path>')
+            print('executeworksheet.py -f <list_of_files> | -w <path_to_sql> -o <output_path>')
             exit(2)
     except getopt.GetoptError:
-        print('executeworksheet.py -w <path_to_sql> -o <output_path>')
+        print('executeworksheet.py -f <list_of_files> | -w <path_to_sql> -o <output_path>')
         sys.exit(2)
 
     for opt, arg in opts:
         if opt == '-h':
-            print('executeworksheet.py -w <path_to_sql> -o <output_path>')
+            print('executeworksheet.py -f <list_of_files> | -w <path_to_sql> -o <output_path>')
             sys.exit()
+        elif opt == '-f':
+            file_list = arg.split(',')
+            if len(file_list) > 0:
+                files = getfilelist(file_list)
+            else:
+                print('when using -f you must provide a comma separated list of SQL filenames and relative path '+arg)
         elif opt == '-w':
             if os.path.exists(arg):
-                worksheet_path = arg
+                if len(files) > 0:
+                    print('cannot pass both a file list and folder path, you need to pick one')
+                    sys.exit(2)
+                else:
+                    files = getworksheets(arg)
             else:
                 print('could not find a SQL file in the given path '+arg)
                 sys.exit(2)
@@ -44,13 +55,12 @@ def main():
             if os.path.exists(arg):
                 local_path = arg
             else:
-                print('you must provide an output path to write the results of queries')
+                print('you must provide an output path to write the execution results')
                 sys.exit(2)
         else:
             print('No args found')
             sys.exit(2)
     
-    files = getworksheets(worksheet_path)
     for file in files:
         sql_cmd = splitworksheet(file)
         c = 1
@@ -87,6 +97,18 @@ def getworksheets(input_path):
             if file_ext.lower() in ['.sql']:
                 worksheets.append(fullpath)
 
+    worksheets.sort()
+    return worksheets
+
+## iterate over file list, check if SQL file and return sorted list
+def getfilelist(items):
+    print('Checking file list {}'.format(items))
+    worksheets = []
+    for item in items:
+        name, file_ext = os.path.splitext(item)
+        if file_ext.lower() in ['.sql']:
+            worksheets.append(item)
+    
     worksheets.sort()
     return worksheets
 

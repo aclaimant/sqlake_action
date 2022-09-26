@@ -3,8 +3,11 @@ description: 'Execute a SQL command using Upsolver SQLake'
 inputs:
   path_to_sql:
     description: 'the relative path, in the local repo, to the files containing SQL code'
-    required: true
+    required: false
     default: 'src'
+  file_list:
+    description: 'a comma separated list of SQL files to execute'
+    required: false
   api_key:
     description: 'upsolver API key'
     required: true
@@ -18,3 +21,4 @@ runs:
   args:
     - ${{ inputs.api_key }}
     - ${{ inputs.path_to_sql }}
+    - ${{ input.file_list }}

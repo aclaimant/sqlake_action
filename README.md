@@ -23,7 +23,7 @@ jobs:
         uses: rhasson/sqlake_action@main
         id: run_step
         with:
-          worksheet_path: src/worksheets
+          path_to_sql: src/worksheets
           api_key: ${{ secrets.API_KEY }}
       - name: Print Results
         run: echo ${{ steps.run_step.outputs.query_results }}
@@ -35,8 +35,8 @@ The Github Action takes as parameter the path to your worksheets inside the repo
 
 ```yaml
 with:
-    worksheet_path: src/worksheets
+    path_to_sql: src/worksheets
     api_key: ${{ secrets.API_KEY }}
 ```
-`worksheet_path` is a relative path within your repository where Worksheets are stored
+`path_to_sql` is a relative path within your repository where SQL files are stored
 `api_key` is the SQLake API token that you create within the Upsolver platform. Note, that the key should be stored in Github Secrets within your repo.
