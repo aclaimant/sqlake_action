@@ -2,13 +2,15 @@ name: 'SQLake Execute Action'
 description: 'Execute a SQL command using Upsolver SQLake'
 inputs:
   path_to_sql:
-    description: 'the relative path, in the local repo, to the files containing SQL code'
+    description: 'The relative path, in the local repo, to the files containing SQL code'
   file_list:
-    description: 'a comma separated list of SQL files to execute'
+    description: 'A comma separated list of SQL files to execute'
   api_key:
-    description: 'upsolver API key'
+    description: 'Upsolver API key'
     required: true
     default: 'somekey'
+  api_endpoint:
+    descriptoin: 'Upsolver API endpoint URL'
 outputs:
   query_results:
     description: 'Returns a JSON object with the query, output and error messages'
@@ -17,5 +19,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.api_key }}
+    - ${{ inputs.api_endpoint }}
     - ${{ inputs.path_to_sql }}
     - ${{ inputs.file_list }}
