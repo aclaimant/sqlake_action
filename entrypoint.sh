@@ -11,12 +11,10 @@ echo "base_url=${INPUT_API_ENDPOINT}" >> /config
 if [ "${INPUT_PATH_TO_SQL}" ]
 then 
   ## execute script with worksheet path
-  echo "${INPUT_PATH_TO_SQL}"
   python3 /executeworksheet.py -w ${INPUT_PATH_TO_SQL} -o ${GITHUB_WORKSPACE}
 elif [ "${INPUT_FILE_LIST}" ]
 then
   ## execute script with worksheet path
-  echo "${INPUT_FILE_LIST}"
   python3 /executeworksheet.py -f ${INPUT_FILE_LIST} -o ${GITHUB_WORKSPACE}
 fi
 

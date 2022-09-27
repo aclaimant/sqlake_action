@@ -43,10 +43,6 @@ def main():
                 print('when using -f you must provide a comma separated list of SQL filenames and relative path '+arg)
         elif opt == '-w':
             if os.path.exists(arg):
-                # if len(files) > 0:
-                #     print('cannot pass both a file list and folder path, you need to pick one')
-                #     sys.exit(2)
-                # else:
                 files = getworksheets(arg)
             else:
                 print('could not find a SQL file in the given path '+arg)
@@ -61,10 +57,10 @@ def main():
             print('No args found')
             sys.exit(2)
     
+    results = []
     for file in files:
         sql_cmd = splitworksheet(file)
         c = 1
-        results = []
         for cmd in sql_cmd:
             if c <= len(sql_cmd):
                 try:
@@ -77,11 +73,11 @@ def main():
                 except subprocess.CalledProcessError as e:
                     print('Query execution failed: {}'.format(e.stderr))
                     results.append(QueryResults(file, c, cmd, '', e.stderr))
-                    exit(2)
+                    sys.exit(2)
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
-        #print(json.dumps(results))
-        writeresults(results, local_path)
+    
+    writeresults(results, local_path)
         
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
@@ -138,7 +134,10 @@ def splitworksheet(path):
 ## write the worksheet execution results to a temp file
 def writeresults(data, local_path):
     print('Writing execution results to {}'.format(local_path))
-    md = formatoutput(data)
+    if len(data) > 0:
+        md = formatoutput(data)
+    else:
+        md = '**Could not find SQL files to execute** \r\n\r\n'
     with open(local_path + '/execution_output.md', 'a', encoding='utf-8') as fd:
         fd.write(md)
 
