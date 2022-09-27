@@ -11,6 +11,7 @@ inputs:
     default: 'somekey'
   api_endpoint:
     descriptoin: 'Upsolver API endpoint URL'
+    required: true
 outputs:
   query_results:
     description: 'Returns a JSON object with the query, output and error messages'
