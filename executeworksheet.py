@@ -117,11 +117,11 @@ def splitworksheet(path):
     ws_file = fd.read()
     fd.close()
 
-##    s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,ws_file)
-##    s = re.sub(re.compile("//.*?\n") ,"" ,s)
-##    s = re.sub(re.compile("--.*?\n") ,"" ,s)
+    s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,ws_file)
+    s = re.sub(re.compile("//.*?\n") ,"" ,s)
+    s = re.sub(re.compile("--.*?\n") ,"" ,s)
 
-    sql_commands = ws_file.split(';')
+    sql_commands = s.split(';')
     
     for s in sql_commands:
         s = s.strip()
