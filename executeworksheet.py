@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 
 ## Parses a SQLake Worksheet and executes each command using the Upsolver CLI ##
-import subprocess
-from typing import NamedTuple
-import json
 import os
 import re
 import sys
+import json
 import getopt
+import subprocess
+from typing import NamedTuple
 
 class QueryResults (NamedTuple):
     worksheet: str # worksheet path and name
@@ -66,7 +66,7 @@ def main():
                 try:
                     print('Executing {0}: {1}'.format(c, cmd))
                     res = subprocess.run(
-                        ['upsolver', '-c', '/config', 'execute', "{}".format(cmd)], capture_output=True, text=True, check=True
+                        ['upsolver', '-c', '/config', 'execute', "-c", "{}".format(cmd)], capture_output=True, text=True, check=True
                     )
                     results.append(QueryResults(file, c, cmd, res.stdout, res.stderr))
                     c += 1
@@ -117,11 +117,11 @@ def splitworksheet(path):
     ws_file = fd.read()
     fd.close()
 
-    s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,ws_file)
-    s = re.sub(re.compile("//.*?\n") ,"" ,s)
-    s = re.sub(re.compile("--.*?\n") ,"" ,s)
+##    s = re.sub(re.compile("/\*.*?\*/",re.DOTALL) ,"" ,ws_file)
+##    s = re.sub(re.compile("//.*?\n") ,"" ,s)
+##    s = re.sub(re.compile("--.*?\n") ,"" ,s)
 
-    sql_commands = s.split(';')
+    sql_commands = ws_file.split(';')
     
     for s in sql_commands:
         s = s.strip()
