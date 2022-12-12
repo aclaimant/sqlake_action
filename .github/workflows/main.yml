@@ -13,7 +13,7 @@ jobs:
         with:
           path_to_sql: src/worksheets
           api_key: ${{ secrets.API_KEY }}
-          api_endpoint: 'https://api-d7591eb0-371d-4708-a393-6be41a770722.upsolver.com'
+          api_endpoint: 'https://api.upsolver.com'
       - name: Print Results
         run: |
           cat ${GITHUB_WORKSPACE}/execution_output.md >> $GITHUB_STEP_SUMMARY
