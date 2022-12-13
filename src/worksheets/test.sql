@@ -1,10 +1,3 @@
-
--- create a sample connection
-create s3 connection sqlake_action_test_conn
-   aws_role = 'arn:aws:iam::433987883887:role/royon_ro_role'
-   external_id = 'ROYON'
-;
-
 -- create a sample table
 CREATE TABLE default_glue_catalog.sqlake_action.test_table_1(
     source_account_id string,
