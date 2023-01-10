@@ -62,4 +62,4 @@ The Github Action takes the following parameters:
 3. `api_endpoint` which is the SQLake API endpoint (public or private) and can be found in the SQLake console.
 4. `path_to_sql` (optional) instead of providing a list of files, you can provide a path to your SQL files. The action will execute them all at every execution. This is not recommended for interactive development, but helpful for pipeline testing.
 
-Check  out the [example repo] (https://github.com/rhasson/cicd_sqlake)
+Check  out the [example repo](https://github.com/rhasson/cicd_sqlake)
