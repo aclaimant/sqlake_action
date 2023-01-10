@@ -1,6 +1,6 @@
 FROM python:slim
 
-RUN pip3 install https://github.com/Upsolver/cli/releases/download/v0.4.0/upsolver-cli.tar.gz
+RUN pip3 install https://github.com/Upsolver/cli/releases/download/v0.6.4/upsolver-cli.tar.gz
 
 COPY cliconfig /config
 COPY entrypoint.sh /entrypoint.sh
