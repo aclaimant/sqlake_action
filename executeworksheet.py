@@ -64,7 +64,7 @@ def main():
         for idx, split_sql_file in enumerate(split_sql_files):
             if c <= len(split_sql_files):
                 try:
-                    print('Executing {0}: {1}'.format((c + 1), split_sql_file))
+                    print('Executing {0}: {1}'.format(c, split_sql_file))
                     res = subprocess.run(
                         ['upsolver', '-c', '/config', 'execute', "-f", "{}".format(split_sql_file)], capture_output=True, text=True, check=True
                     )
@@ -131,10 +131,11 @@ def splitworksheet(path):
         s = s.strip()
         if s:
             s = s + ';'
-    tmp_filename = f"{temp_dir}/temp_{idx}.sql"
-    with open(tmp_filename, 'w+', encoding='utf-8') as fd:
-        fd.write(s)
-    files.append(tmp_filename)
+
+        tmp_filename = f"{temp_dir}/temp_{idx}.usql"
+        with open(tmp_filename, 'w+', encoding='utf-8') as fd:
+            fd.write(s)
+        files.append(tmp_filename)
 
     return files
 
