@@ -137,6 +137,8 @@ def splitworksheet(path):
                 fd.write(s)
             files.append(tmp_filename)
 
+            print(f"Created {tmp_filename}: {s}")
+
     return files
 
 ## write the worksheet execution results to a temp file
