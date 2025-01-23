@@ -123,13 +123,14 @@ def splitworksheet(path):
 
     sql_commands = s.split(';')
 
-    temp_dir = os.environ['RUNNER_TEMP']
+    # temp_dir = os.environ['RUNNER_TEMP']
+    temp_dir = os.environ['TMPDIR']
     for idx, s in enumerate(sql_commands):
         s = s.strip()
         if s:
             s = s + ';'
     tmp_filename = f"{temp_dir}/temp_{idx}.sql"
-    with open(tmp_filename, 'w', encoding='utf-8') as fd:
+    with open(tmp_filename, 'w+', encoding='utf-8') as fd:
         fd.write(s)
     files.append(tmp_filename)
 
