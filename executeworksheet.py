@@ -123,8 +123,10 @@ def splitworksheet(path):
 
     sql_commands = s.split(';')
 
-    # temp_dir = os.environ['RUNNER_TEMP']
-    temp_dir = os.environ['TMPDIR']
+    temp_dir = f"{os.environ['RUNNER_TEMP']}/sqlake"
+    if not os.path.exists(temp_dir):
+        os.makedirs(temp_dir)
+
     for idx, s in enumerate(sql_commands):
         s = s.strip()
         if s:
