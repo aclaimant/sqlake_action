@@ -136,8 +136,9 @@ def splitworksheet(path):
             s = s + ';'
 
             tmp_filename = f"{temp_dir}/temp_{idx}.usql"
-            with open(tmp_filename, 'w', encoding='utf-8') as fd:
+            with open(tmp_filename, 'w+', encoding='utf-8') as fd:
                 fd.write(s)
+                fd.flush()
             files.append(tmp_filename)
 
     return files
