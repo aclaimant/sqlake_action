@@ -65,11 +65,8 @@ def main():
             if c <= len(split_sql_files):
                 try:
                     print('Executing {0}: {1}'.format(c, split_sql_file))
-                    with open(split_sql_file, 'r') as fd:
-                        exe_cmd = fd.read()
-                        print(f"!! Executing: {exe_cmd}")
                     res = subprocess.run(
-                        ['upsolver', 'execute', '-c', '/config', "-f", split_sql_file], capture_output=True, text=True, check=True
+                        ['upsolver', '--config', '/config', 'execute', "-f", split_sql_file], capture_output=True, text=True, check=True
                     )
                     results.append(QueryResults(file, c, split_sql_file, res.stdout, res.stderr))
                     c += 1
