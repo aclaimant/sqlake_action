@@ -56,29 +56,29 @@ def main():
         else:
             print('No args found')
             sys.exit(2)
-    
+
     results = []
     for file in files:
-        sql_cmd = splitworksheet(file)
+        split_sql_files = splitworksheet(file)
         c = 1
-        for cmd in sql_cmd:
-            if c <= len(sql_cmd):
+        for idx, split_sql_file in enumerate(split_sql_files):
+            if c <= len(split_sql_files):
                 try:
-                    print('Executing {0}: {1}'.format(c, cmd))
+                    print('Executing {0}: {1}'.format(c, split_sql_file))
                     res = subprocess.run(
-                        ['upsolver', '-c', '/config', 'execute', "-c", "{}".format(cmd)], capture_output=True, text=True, check=True
+                        ['upsolver', '--config', '/config', 'execute', "-f", split_sql_file], capture_output=True, text=True, check=True
                     )
-                    results.append(QueryResults(file, c, cmd, res.stdout, res.stderr))
+                    results.append(QueryResults(file, c, split_sql_file, res.stdout, res.stderr))
                     c += 1
                 except subprocess.CalledProcessError as e:
                     print('Query execution failed: {}'.format(e.stderr))
-                    results.append(QueryResults(file, c, cmd, '', e.stderr))
+                    results.append(QueryResults(file, c, split_sql_file, '', e.stderr))
                     sys.exit(2)
 
         print('Finished executing {} \r\n'.format(os.path.basename(file)))
-    
+
     writeresults(results, local_path)
-        
+
 ## walk the input path
 ## return a list of .sql files (assumed to be worksheets)
 def getworksheets(input_path):
@@ -104,7 +104,7 @@ def getfilelist(items):
         name, file_ext = os.path.splitext(item)
         if file_ext.lower() in ['.sql']:
             worksheets.append(item)
-    
+
     worksheets.sort()
     return worksheets
 
@@ -112,7 +112,7 @@ def getfilelist(items):
 ## return a list of sql commands to execute
 def splitworksheet(path):
     print('Spliting SQL file in {}'.format(path))
-    cmds = []
+    files = []
     fd = open(path, 'r')
     ws_file = fd.read()
     fd.close()
@@ -122,14 +122,23 @@ def splitworksheet(path):
     s = re.sub(re.compile("--.*?\n") ,"" ,s)
 
     sql_commands = s.split(';')
-    
-    for s in sql_commands:
+
+    temp_dir = f"{os.environ['RUNNER_TEMP']}/sqlake"
+    if not os.path.exists(temp_dir):
+        os.makedirs(temp_dir)
+
+    for idx, s in enumerate(sql_commands):
         s = s.strip()
         if s:
             s = s + ';'
-            cmds.append(s)
 
-    return cmds
+            tmp_filename = f"{temp_dir}/temp_{idx}.usql"
+            with open(tmp_filename, 'w+', encoding='utf-8') as fd:
+                fd.write(s)
+                fd.flush()
+            files.append(tmp_filename)
+
+    return files
 
 ## write the worksheet execution results to a temp file
 def writeresults(data, local_path):
