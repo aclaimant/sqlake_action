@@ -132,10 +132,10 @@ def splitworksheet(path):
         if s:
             s = s + ';'
 
-        tmp_filename = f"{temp_dir}/temp_{idx}.usql"
-        with open(tmp_filename, 'w+', encoding='utf-8') as fd:
-            fd.write(s)
-        files.append(tmp_filename)
+            tmp_filename = f"{temp_dir}/temp_{idx}.usql"
+            with open(tmp_filename, 'w+', encoding='utf-8') as fd:
+                fd.write(s)
+            files.append(tmp_filename)
 
     return files
 
