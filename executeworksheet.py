@@ -66,7 +66,7 @@ def main():
                 try:
                     print('Executing {0}: {1}'.format(c, split_sql_file))
                     res = subprocess.run(
-                        ['upsolver', '-c', '/config', 'execute', "-f", "{}".format(split_sql_file)], capture_output=True, text=True, check=True
+                        ['upsolver', 'execute', '-c', '/config', "-f", "{}".format(split_sql_file)], capture_output=True, text=True, check=True
                     )
                     results.append(QueryResults(file, c, split_sql_file, res.stdout, res.stderr))
                     c += 1
@@ -133,11 +133,9 @@ def splitworksheet(path):
             s = s + ';'
 
             tmp_filename = f"{temp_dir}/temp_{idx}.usql"
-            with open(tmp_filename, 'w+', encoding='utf-8') as fd:
+            with open(tmp_filename, 'w', encoding='utf-8') as fd:
                 fd.write(s)
             files.append(tmp_filename)
-
-            print(f"Created {tmp_filename}: {s}")
 
     return files
 
